@@ -1,13 +1,15 @@
 import java.util.UUID;
 
-public class LVM {
+public class Storage {
     private String name;
+    private int storage;
     private String uuid;
 
-    public LVM(String name){
+    public Storage(String name, int storage){
         UUID u = UUID.randomUUID();
         uuid = u.toString();
         this.name = name;
+        this.storage = storage;
     }
 
     public String getName() {
@@ -18,6 +20,14 @@ public class LVM {
         this.name = name;
     }
 
+    public int getStorage() {
+        return storage;
+    }
+
+    public void setStorage(int storage) {
+        this.storage = storage;
+    }
+
     public String getUuid() {
         return uuid;
     }
@@ -25,6 +35,4 @@ public class LVM {
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
-
-
 }
