@@ -5,9 +5,9 @@ public class VolumeGroup extends Storage{
     private ArrayList<LogicalVolume> logicalVolumes;
     private int available;
 
-    public VolumeGroup(String name){
+    public VolumeGroup(String name, PhysicalVolume physicalVolume){
         super(name, 0);
-        available = 0;
+        addPhysicalVolume(physicalVolume);
     }
 
     public ArrayList<PhysicalVolume> getPhysicalVolumes() {
@@ -42,6 +42,7 @@ public class VolumeGroup extends Storage{
 
     public void addLogicalVolume(LogicalVolume lv){
         logicalVolumes.add(lv);
-
+        available -= lv.getStorage();
+        lv.setVolumeGroupName(super.getName());
     }
 }

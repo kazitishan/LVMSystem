@@ -35,4 +35,8 @@ public class Storage {
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
+
+    public String toString(){
+        return name + ": [" + uuid + "] [Total: " + storage + " GB]";
+    }
 }
