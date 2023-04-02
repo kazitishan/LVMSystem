@@ -7,6 +7,8 @@ public class VolumeGroup extends Storage{
 
     public VolumeGroup(String name, PhysicalVolume physicalVolume){
         super(name, 0);
+        physicalVolumes = new ArrayList<PhysicalVolume>();
+        logicalVolumes = new ArrayList<LogicalVolume>();
         addPhysicalVolume(physicalVolume);
     }
 
@@ -43,6 +45,15 @@ public class VolumeGroup extends Storage{
     public void addLogicalVolume(LogicalVolume lv){
         logicalVolumes.add(lv);
         available -= lv.getStorage();
-        lv.setVolumeGroupName(super.getName());
+    }
+
+    @Override
+    public String toString() {
+        String allPVs = "";
+        for (PhysicalVolume pv : physicalVolumes){
+            allPVs += pv.getName() + ",";
+        }
+        allPVs = allPVs.substring(0, allPVs.length() - 1);
+        return super.toString() + "total:[" + super.getStorage() + " GB] available:[" + available + " GB] [" + allPVs + "]";
     }
 }

@@ -37,6 +37,6 @@ public class Storage {
     }
 
     public String toString(){
-        return name + ": [" + uuid + "] [Total: " + storage + " GB]";
+        return name + ": [" + uuid + "] ";
     }
 }

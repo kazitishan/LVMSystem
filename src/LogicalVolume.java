@@ -12,4 +12,9 @@ public class LogicalVolume extends Storage{
     public void setVolumeGroupName(String volumeGroupName) {
         this.volumeGroupName = volumeGroupName;
     }
+
+    @Override
+    public String toString(){
+        return super.toString() + "[" + super.getStorage() + " GB]" + " [" + volumeGroupName + "]";
+    }
 }

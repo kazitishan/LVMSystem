@@ -23,5 +23,10 @@ public class PhysicalVolume extends Storage {
         VolumeGroupName = volumeGroupName;
     }
 
-
+    @Override
+    public String toString(){
+        String string = super.toString() + "[" + super.getStorage() + " GB]";
+        if (VolumeGroupName != null) string += "[" + VolumeGroupName + "]";
+        return string;
+    }
 }
