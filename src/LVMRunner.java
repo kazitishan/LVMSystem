@@ -1,23 +1,13 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
-public class LVMRunner implements Serializable{
-    private static LogicalVolumeManager LVM = new LogicalVolumeManager();
-    public static void main(String[] args) throws IOException {
+public class LVMRunner{
 
-        try {
-            FileInputStream fileIn = new FileInputStream("lvm_ser.txt");
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            LVM = (LogicalVolumeManager) in.readObject();
-            in.close();
-            fileIn.close();
-            System.out.println("Data loaded.");
-        } catch (IOException i) {
-            System.out.println("Error: " + i.getMessage());
-        } catch (ClassNotFoundException c) {
-            System.out.println("LogicalVolumeManager class not found.");
-            System.out.println("Error: " + c.getMessage());
-        }
+    private static LogicalVolumeManager LVM = new LogicalVolumeManager();
+    public static void main(String[] args) throws Exception {
+
+        File data = new File("src/lvmdata.txt");
+        getDataFromFile(data);
 
         Scanner s = new Scanner(System.in);
         String input = "";
@@ -27,14 +17,27 @@ public class LVMRunner implements Serializable{
             input = s.nextLine();
             LVM.cmd(input);
         }
-        saveToFile();
+
+        try {
+            PrintWriter writer = new PrintWriter(data);
+            writer.println(LVM.toString());
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
-    public static void saveToFile() {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("lvm_ser.txt"))) {
-            out.writeObject(LVM);
-        } catch (IOException e) {
-            System.err.println("Error saving to file: " + e.getMessage());
+    // saves drive data but nothing else (i tried serialization but it did not work for some reason)
+    public static void getDataFromFile(File file) throws FileNotFoundException {
+        if (file.length() > 0){
+            Scanner scan = new Scanner(file);
+            String[] data = scan.nextLine().split("//");
+            if (!data[0].equals(" ")){
+                String[] drives = data[0].split(",");
+                for (String driveData : drives){
+                    LVM.addDrive(driveData);
+                }
+            }
         }
     }
 }

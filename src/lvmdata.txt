@@ -1,0 +1,1 @@
+sda: [6d281ed7-dfd0-4278-bdcd-8a808411a4d3] [100 GB],sdb: [fe5d5b00-2d6d-4bbb-a32d-39426fb8acd3] [100 GB] //pv1: [06b7479d-f304-4f3f-82d7-d288738dc66d] [100 GB] // // //

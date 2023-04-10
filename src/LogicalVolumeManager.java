@@ -150,6 +150,70 @@ public class LogicalVolumeManager implements Serializable {
         }
     }
 
+    // methods needed to save to file:
+    public String toString(){
+        String drives = "";
+        if (driveList.size() > 0){
+            for (Drive drive : driveList){
+                drives += drive.toString() + ",";
+            }
+            drives = drives.substring(0, drives.length() - 1);
+        }
+
+        String pvs = "";
+        if (pvList.size() > 0){
+            for (PhysicalVolume pv : pvList){
+                pvs += pv.toString() + ",";
+            }
+            pvs = pvs.substring(0, pvs.length() - 1);
+        }
+
+        String vgs = "";
+        if (vgList.size() > 0){
+            for (VolumeGroup vg : vgList){
+                vgs += vg.toString() + ",";
+            }
+            vgs = vgs.substring(0, vgs.length() - 1);
+        }
+
+        String lvs = "";
+        if (lvList.size() > 0){
+            for (LogicalVolume lv : lvList){
+                lvs += lv.toString() + ",";
+            }
+            lvs = lvs.substring(0, lvs.length() - 1);
+        }
+
+        return drives + " //" + pvs + " //" + vgs + " //" + lvs + " //";
+
+        // lists the information of the LVM in a more readable way:
+//        String string = "Drives:\n";
+//        for (Drive drive : driveList){
+//            string += drive.toString() + "\n";
+//        }
+//        string += "Physical Volumes:\n";
+//        for (PhysicalVolume pv : pvList){
+//            string += pv.toString() + "\n";
+//        }
+//        string += "Volume Groups:\n";
+//        for (VolumeGroup vg : vgList){
+//            string += vg.toString() + "\n";
+//        }
+//        string += "Logical Volumes:\n";
+//        for (LogicalVolume lv : lvList){
+//            string += lv.toString() + "\n";
+//        }
+//        return string;
+    }
+
+    public void addDrive(String driveInfo){
+        String name = driveInfo.substring(0, driveInfo.indexOf(":"));
+        String uuid = driveInfo.substring(driveInfo.indexOf("[") + 1, driveInfo.indexOf("]"));
+        int storage = Integer.parseInt(driveInfo.substring(driveInfo.indexOf("]") + 3, driveInfo.indexOf("GB") - 1));
+        Drive drive = new Drive(name, storage);
+        drive.setUuid(uuid);
+        driveList.add(drive);
+    }
 
 
 }

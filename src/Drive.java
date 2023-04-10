@@ -1,4 +1,6 @@
-public class Drive extends Storage{
+import java.io.Serializable;
+
+public class Drive extends Storage implements Serializable {
     public Drive(String name, int storage){
         super(name, storage);
     }
